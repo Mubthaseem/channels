@@ -1,103 +1,37 @@
-<script type="text/javascript">
-        document.oncontextmenu = function(){return false}
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/console-ban@4.1.0/dist/console-ban.min.js"></script><style type="text/css">* {user-select: auto !important; -webkit-user-select: auto !important;}</style><input type="hidden" id="inject_idm_text_selection"><style></style>
-    <script>
-        // default options
-        ConsoleBan.init()
-        // custom options
-        ConsoleBan.init({
-          redirect: 'https://google.com'
-        })
- </script>
-      <body>
-<script type="text/javascript">
-function getParameterByName(name) {
- name = name.replace(/[\[]/, "\[").replace(/[\]]/, "\]");
- var regex = new RegExp("[\?&]" + name + "=([^&#]*)"),
- results = regex.exec(location.search);
- return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
+<html>
+        <head>
+                                <script src="//ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
+<script>
+    jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";
 
-var get = getParameterByName('get');
-var key = getParameterByName('key');
-var key2 = getParameterByName('key2');
-var getIMG = getParameterByName('img');
+    // Function to get the value of a URL parameter
+    function getParameterByName(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+
+    // Fetch the video source from the 'get' parameter
+    const videoSource = getParameterByName('get');
+
+    if (videoSource) {
+        jwplayer('my-video').setup({
+            file: videoSource,
+            width: '100%',
+            height: '100%',
+            autostart: true,
+            image: 'https://i.ibb.co/MhQLnC3/player-thumb.png',
+            primary: 'html5',
+            hlshtml: true
+        });
+    } else {
+        console.error('Video source parameter "get" is missing in the URL.');
+    }
 </script>
-<div id="player" class="jw-error jw-reset" style="width: 100%; height: 400px;"><div class="jw-error-msg jw-info-overlay jw-reset"><style>[id="player"].jw-error{background:#000;overflow:hidden;position:relative}[id="player"] .jw-error-msg{top:50%;left:50%;position:absolute;transform:translate(-50%,-50%)}[id="player"] .jw-error-text{text-align:start;color:#FFF;font:14px/1.35 Arial,Helvetica,sans-serif}</style><div class="jw-icon jw-reset"><svg xmlns="http://www.w3.org/2000/svg" class="jw-svg-icon jw-svg-icon-error" viewBox="0 0 36 36" style="width:100%;height:100%;" focusable="false"><path d="M34.6 20.2L10 33.2 27.6 16l7 3.7a.4.4 0 0 1 .2.5.4.4 0 0 1-.2.2zM33.3 0L21 12.2 9 6c-.2-.3-.6 0-.6.5V25L0 33.6 2.5 36 36 2.7z"></path></svg></div><div class="jw-info-container jw-reset"><div class="jw-error-text jw-reset-text" dir="auto" data-nosnippet="">This video file cannot be played.<span class="jw-break jw-reset"></span>(Error&nbsp;Code:&nbsp;102630)</div></div></div></div
-  <script type="text/javascript">
-var playerInstance = jwplayer("player");
-
-playerInstance.setup({
-
- logo: {
-                file: 'https://www.linksmedicus.com.br/wp-content/uploads/2020/08/telegram-icon.png',
-                link: 'https://heylink.me/footem',
-                position: 'control-bar'
-            },
- playlist: [{
-  "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2bRcz3wxjohW6syWXhocA523770_YrLNr9HHoD1d0bBGr7KufGT71XMxEcazh5y1pEcdZVQX3o7R8s8aqrzwSEnrs0KewauqOdC37jz4Wy5rS5GC6fWy31cY11KMcBVh_J78t-OOQDSQciEwysL2EONiDBpnkv-YJMwvW9XeZ2ij67pEuBosAzwN0bmeM/s1280/footem.png",
-  "sources": [
-   {
-    "default": false,
-    "type": "hls",
-    "file": atob(get),
-   
-    "label": "0"
-   }
-  ]
- }],
- width: "100%",
- height: "400px",
- aspectratio: "16:9",
- autostart: false,
- cast: {},
- sharing: {}
-});
-</script>
-  
-  
-    <!--direct link-->
-    <script type="text/javascript">
-        var isCtrl = false;
-        document.onkeyup = function(e) {
-            if (e.which == 17)
-                isCtrl = false;
-        }
-        document.onkeydown = function(e) {
-            if (e.which == 17)
-                isCtrl = true;
-            if ((e.which == 85) || (e.which == 67) && isCtrl == true) {
-                // alert(%8Keyboard shortcuts are cool!%9);
-                return false;
-            }
-        }
-        var isNS = (navigator.appName == "Netscape") ? 1 : 0;
-        if (navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN || Event.MOUSEUP);
-
-        function mischandler() {
-            return false;
-        }
-
-        function mousehandler(e) {
-            var myevent = (isNS) ? e : event;
-            var eventbutton = (isNS) ? myevent.which : myevent.button;
-            if ((eventbutton == 2) || (eventbutton == 3)) return false;
-        }
-        document.oncontextmenu = mischandler;
-        document.onmousedown = mousehandler;
-        document.onmouseup = mousehandler;
-    </script>
-
-  
-<a href="javascript:document.location.reload();" onclick="window.open('https://heylink.me/footem'); return false;" target="_blank">
-    <span style="position:absolute;z-index: 100; top:5px; left:5px; height:20px; width:100px; color:#ccc; border:2px solid #ccc;padding:1px 0;border-radius:2px; text-align:center">
-        <i class="fa fa-refresh"></i> Join US
-    </span>
-</a>
-
- 
+        </head>
+        <body>
 
 
+<div id="my-video" style="width: 100%; height: 100%;"></div>
 
-</body></html>
+        </body>
+</html>
