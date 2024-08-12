@@ -1,42 +1,43 @@
 <div id="vid"></div>
 
-  <script src="https://cdn.jsdelivr.net/clappr/latest/clappr.min.js" type="text/javascript"></script>
-  <script src="https://cdn.jsdelivr.net/clappr.level-selector/latest/level-selector.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/clappr/latest/clappr.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/clappr.level-selector/latest/level-selector.min.js" type="text/javascript"></script>
 
-  <script>
+<script>
     var urlParams = new URLSearchParams(window.location.search);
     var videoLink = urlParams.get('video');
 
     if (videoLink) {
-      var player = new Clappr.Player({
-        source: videoLink,
-        mimeType: "application/x-mpegURL",
-        autoPlay: "true",
-        height: "100%",
-        width: "100%",
-        watrmark: "https://i.ibb.co/zJb9yXF/whatsapp.png",
-        watrmarkLink: "https://chat.whatsapp.com/KM9rVVjqKxv6hfv9O7ZsJO",
-        position: 'top-right',
-        plugins: { "core": [LevelSelector] },
-        parentId: "#vid"
-      });
+        var player = new Clappr.Player({
+            source: videoLink,
+            mimeType: "application/x-mpegURL",
+            autoPlay: true,
+            height: "100%",
+            width: "100%",
+            watermark: "https://i.ibb.co/zJb9yXF/whatsapp.png", // Fixed typo (from "watrmark")
+            watermarkLink: "https://chat.whatsapp.com/KM9rVVjqKxv6hfv9O7ZsJO", // Fixed typo (from "watrmarkLink")
+            position: 'top-right',
+            plugins: [LevelSelector], // Fixed plugin syntax
+            parentId: "#vid"
+        });
+    } else {
+        console.error('Video link parameter "video" is missing in the URL.');
     }
-    
-   
-  </script><style>
+</script>
+
+<style>
     body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      display:none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: none; /* The page will be hidden, including the player */
     }
     #vid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9998;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9998;
     }
-
-  </style>
+</style>
