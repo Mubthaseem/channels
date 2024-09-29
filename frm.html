@@ -1,40 +1,72 @@
-<div id="vid"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Screen Video Embed</title>
+    <style>
+        /* Ensure the entire page has no margins or padding */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* Prevent scrolling */
+        }
 
-<script>
-    // Function to get the value of a URL parameter
-    var urlParams = new URLSearchParams(window.location.search);
-    var videoLink = urlParams.get('video');
+        /* Fullscreen container for the iframe */
+        #vid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 
-    if (videoLink) {
-        var iframe = document.createElement('iframe');
-        iframe.setAttribute('allowfullscreen', '');
-        iframe.setAttribute('frameborder', '0');
-        iframe.setAttribute('height', '400');
-        iframe.setAttribute('sandbox', 'allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation');
-        iframe.setAttribute('scrolling', 'no');
-        iframe.setAttribute('width', '100%');
-        iframe.setAttribute('height', '100%');
-        iframe.src = videoLink;
+        /* Iframe takes up full width and height */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
-        // Append the iframe to the 'vid' div
-        document.getElementById('vid').appendChild(iframe);
-    } else {
-        console.error('Video link parameter "video" is missing in the URL.');
-    }
-</script>
+        /* Clickable logo overlay */
+        #logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px; /* Adjust the size of the logo */
+            cursor: pointer;
+            z-index: 10; /* Ensure the logo is on top of the iframe */
+        }
+    </style>
+</head>
+<body>
 
-<style>
-    #vid {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-</style>
-  
-<a href="javascript:document.location.reload();" onclick="window.open('https://www.zetasports.xyz/group'); return false;" target="_blank">
-    <span style="position:absolute;z-index: 100; top:5px; left:5px; height:20px; width:100px; color:#ccc; border:2px solid #ccc;padding:1px 0;border-radius:2px; text-align:center">
-        <i class="fa fa-refresh"></i> Join US
-    </span>
-</a>
+    <div id="vid">
+        <!-- The iframe is dynamically created -->
+        <iframe id="videoFrame" allowfullscreen="" frameborder="0" 
+            sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" 
+            scrolling="no" width="100%" height="100%">
+        </iframe>
+
+        <!-- Clickable logo that links to external website -->
+        <a href="https://www.zetasports.xyz/group" target="_blank">
+            <img id="logo" src="https://i.ibb.co/qCJmCXF/20221219-204952.png" alt="Logo">
+        </a>
+    </div>
+
+    <script>
+        // Function to get the value of a URL parameter
+        var urlParams = new URLSearchParams(window.location.search);
+        var videoLink = urlParams.get('video');
+
+        // If a video URL is provided in the parameter, set it as the iframe's source
+        if (videoLink) {
+            document.getElementById('videoFrame').src = videoLink;
+        } else {
+            console.error('Video link parameter "video" is missing in the URL.');
+        }
+    </script>
+
+</body>
+</html>
