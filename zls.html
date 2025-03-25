@@ -1,0 +1,1013 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Player</title>
+    <meta content="noindex, nofollow, noarchive" name="robots"/>
+    <meta name="referrer" content="no-referrer" />
+    <script src="//ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
+    <script>jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";</script>
+<script id="aclib" type="text/javascript" src="https://alwaysdomain01.online/ads/lib7.js"></script>
+<script type="text/javascript">
+    aclib.runPop({
+        zoneId: '7440630',
+    });
+</script>
+    <style>
+        body { margin: 0px; }
+        .ViostreamIframe { overflow: hidden; padding-top: 56.25%; position: relative; }
+        .ViostreamIframe iframe { border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%; }
+    </style>
+</head>
+<body>
+    <div id="player" class="ViostreamIframe"></div>
+
+    <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(window.location.href);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        var ConfiguracionCanales = {
+            
+            "USANETWORK": {
+                url: "https://cfrt.stream.peacocktv.com/Content/CMAF_OL1-CTR-4s/Live/channel(usa-west)/master.mpd",
+                k1: "252a671825ba31ec8433f978c32ccf6d",
+                k2: "ee560759ecc8d2274df2e63fcef56915"
+            },
+            "SSC1": {
+                url: "https://ssc-1-enc.edgenextcdn.net/out/v1/c696e4819b55414388a1a487e8a45ca1/index.mpd",
+                k1: "d84c325f36814f39bbe59080272b10c3",
+                k2: "550727de4c96ef1ecff874905493580f"
+            },
+            "SSC2": {
+                url: "https://ssc2-ak.akamaized.net/out/v1/a16db2ec338a445a82d9c541cc9293f9/index.mpd",
+                k1: "8BCFC55359E24BD7AD1C5560A96DDD3C",
+                k2: "b5dcf721ab522af92a9d3bf0bd55b596"
+            },
+            "SSC3": {
+                url: "https://ssc3-ak.akamaized.net/out/v1/42e86125555242aaa2a12056832e7814/index.mpd",
+                k1: "7de5dd08ad8041d586c2f16ccc9490a1",
+                k2: "5e1503f3398b34f5099933fedab847ef"
+            },
+            "SSC4": {
+                url: "https://ssc4-ak.akamaized.net/out/v1/5267ea5772874b0db24559d643eaad93/index.mpd",
+                k1: "5c672f6b85a94638872d0214f7806ed4",
+                k2: "bf8756fbb866ee2d5c701c2289dd8de3"
+            },
+            "SSC5": {
+                url: "https://ssc-5-enc.edgenextcdn.net/out/v1/99289eac5a7b4319905da595afbd792b/index.mpd",
+                k1: "c88b512b17ab4f6cb09eb0ff4a1056ed",
+                k2: "adc08ee1c20a734972a55c9aebbd1888"
+            },
+            "SSC_EXTRA1": {
+                url: "https://ssc-extra-1-enc.edgenextcdn.net/out/v1/647c58693f1d46af92bd7e69f17912cb/index.mpd",
+                k1: "ecbc9e6fe6b145efb6658fb5cf7427f8",
+                k2: "03c17e28911f71221acbc0b11f900401"
+            },
+            "SSC_EXTRA2": {
+                url: "https://ssc-extra2-ak.akamaized.net/out/v1/8b70de2b70d447ba8a7450ba90926a2d/index.mpd",
+                k1: "4d89249bd4ca4ebc9e70443265f9507d",
+                k2: "cf074ffd2646c9c2f8513b47fa57bc30"
+            },
+            "SSC_EXTRA3": {
+                url: "https://ssc-extra3-ak.akamaized.net/out/v1/8f1c6c3f05ef4284a64b342891bd85ae/index.mpd",
+                k1: "98cfd6fd4812497fb24dc75f7545f2ee",
+                k2: "d3006ee69e77b25939728ebf30d3180a"
+            },
+            "SSC_NEWS": {
+                url: "https://ssc-news-live-ak.akamaized.net/out/v1/ef466f43623c4bbaa3f905b566ec35ea/index.mpd",
+                k1: "3d04975236a44f62857d181597705ee6",
+                k2: "362133e9cb13189ad4fe095ced216f60"
+            },
+            "BBC1": {
+                url: "https://nlziet-live.akamaized.net/L10/83066be1/2964e0b7.isml/.mpd",
+                k1: "079d3f2f69a749e0957478d9068369c6",
+                k2: "6b4a90d3e4d237aa97cad444cb977c0a"
+            }, 
+            "SPORTSNET_1_CA": {
+                url: "https://live-streaming-rsm.akamaized.net/sn1hd/sn1hd_cenc.isml/.mpd",
+                k1: "f9dd2ed9609f49309ddf07892d25b081",
+                k2: "c1254109aaff73701fbea97dc1899b8e"   
+            },
+            "SPORTSNETWORLD_CA": {
+                url: "https://live-streaming-rsm.azureedge.net/snwlh/snwlh_cenc.isml/.mpd",
+                k1: "44f6a1e5467d4df7a9da2d1b96ee62ca",
+                k2: "157d3d7156dd1b288d661d453dbfc682"
+            },
+            "TV4_SE": {
+                url: "https://director.streaming.telia.com/tvm-packager-prod/group2/61a4859b79019af4abf1009d/manifest.mpd?adap=default",
+                k1: "b09d157d18ab51b9923a3d5abdeefd52",
+                k2: "5a29bb3c705edea6941a5b1d575ac316" 
+            },
+             "ZDF_DE": {
+                url: "https://p7s1-live-001-prod.akamaized.net/45371d5a/t_009/zdf-de-hd/cenc-default.mpd",
+                k1: "7757d3fa8cdab673a2dd9f3ed7b41360",
+                k2: "96e498b70eeecfc0164ed4e0a78e36f3"
+            },
+            "TIPIK_BE": {
+                url: "https://c9851ec-rbm-hilv-fsly.cdn.redbee.live/L26/6b640fa2/13eebe8d.isml/dash/.mpd",
+                k1: "2f794d3c19854f4fa6f0183b993b86fa",
+                k2: "37077d010758ce2cb85ca46720884b01"    
+            },
+            "DAS_ERSTE": {
+                url: "https://p7s1-live-001-prod.akamaized.net/28df258a/t_009/daserste-de-hd/cenc-default.mpd",
+                k1: "667f821486adfa6df62b53e41fe60c65",
+                k2: "be65cc2c378180153cbac97bc6ab8625"  
+            },
+            "CT_SPORTS_CZ": {
+                url: "https://dash2.antik.sk/stream/nvidia_ct_sport/playlist_cbcs.mpd",
+                k1: "11223344556677889900112233445566",
+                k2: "11223344556677889900112233445566" 
+            },
+             "CARACOL_VPN_CO": {
+                url: "https://co-e1-p-e-mf2.cdn.mdstrm.com/live-stream-gdai/linear/hls/pa/event/3csP3jVSTr-D1F-4lpxWng/stream/97e30156-d455-4801-a91e-796290b3bc27:CBF2/master.m3u8?ref=https%3A%2F%2Fwww.caracoltv.com%2F&ote=1718998659747&ot=oMnRvgSMgf61sGTy5qrwGg",
+            },
+            "ESPN_NL_4": {
+                url: "https://da-d436234b20010b8800010302000000000000000d.id.cdn.upcbroadband.com/wp/wp4-vxtoken-anp-g05060506-hzn-nl.t1.prd.dyncdn.dmdsdp.com/live/disk1/NL_000110_019562/_shared_05e8c13b39b3f30524c26012f903ed7f/NL_000110_019562.mpd",
+                k1: "3e999e38253834baa63881ea451f2839",
+                k2: "99b88d9cde1d8986decbc5985da87187"
+            },
+            "TSN1_CA": {
+                url: "https://live-ctv.video.9c9media.com/f/TSN/TSN1/manifest.mpd",
+                k1: "dea83ced0141424e983e1afe463b4b0d",
+                k2: "c00dd5dd17b0799aa4013f365a1393ce"
+            },
+            "TSN2_CA": {
+                url: "https://live-ctv.video.9c9media.com/f/TSN/TSN2/manifest.mpd",
+                k1: "ddc52c88e2c24d38a5bc8dda8a2acb61",
+                k2: "ad5ea485464a13eec7dda3249c556446"
+            },
+            "TSN3_CA": {
+                url: "https://live-ctv.video.9c9media.com/f/TSN/TSN3/manifest.mpd",
+                k1: "c0f378ad54e14a9c85a3d8c986d2a51f",
+                k2: "5e1d040743ff78715e464ffb905e68a9"
+            },
+            "TSN4_CA": {
+                url: "https://live-ctv.video.9c9media.com/f/TSN/TSN4/manifest.mpd",
+                k1: "f0a2efd11e0643c3a45d6f67d02f1a97",
+                k2: "85bf4469003bd28f01ea4fefedd5a431"
+            },
+            "TSN5_CA": {
+                url: "https://live-ctv.video.9c9media.com/f/TSN/TSN5/manifest.mpd",
+                k1: "cb57741a1cee422690c6294a06eb1320",
+                k2: "7a0cfd493df6ef7cc0d0bb3ad95cec8c"
+            },
+            "DAZN_LA_LIGA": {
+                url: "https://live.ll.ww.aiv-cdn.net/OTTB/dub-nitro/live/clients/dash/enc/wjgklbtvhh/out/v1/659736a1e24c40e4865a80ffd75e7de7/cenc.mpd",
+                k1: "43d1c3b25207ff38b22ccfe17d302367",
+                k2: "7b1f85f6e81059473b114c16a25c829a"
+            },
+            "EUROSPORTS_11": {
+                url: "https://dcf-ak-livedazn.akamaized.net/dashrdm/dazn-linear-031/stream.mpd",
+                k1: "82f8e2a17dac44c0a18f660479349c59",
+                k2: "1b144f73e6fefe91cd05f850e2b589d0"
+            },
+            "EUROSPORTS_22": {
+                url: "https://dcf-ak-livedazn.akamaized.net/dashrdm/dazn-linear-032/stream.mpd",
+                k1: "82f8e2a17dac44c0a18f660479349c59",
+                k2: "1b144f73e6fefe91cd05f850e2b589d0"
+            },
+            "LALIGA_HYPE": {
+                url: "https://live.ll.ww.aiv-cdn.net/OTTB/dub-nitro/live/clients/dash/enc/woujvkfnmn/out/v1/141b52f08a1e4e97850219729ee48dc8/cenc.mpd",
+                k1: "0b1fdeaee3ffc51e9a66cf1938d57aaf",
+                k2: "28e3cb88ab7b476b81ab8aa0624c4d71"
+            },
+            "SKY_252_IT": {
+                url: "https://linear311-it-dash1-prd-akg0.cdn13.skycdp.com/016a/32951/FHD/skysport252/master.mpd",
+                k1: "003643bc9d61268c987504fa93b397f6",
+                k2: "b8d5767c73ff8bba68d955035b56f4c1" 
+            },
+            "NRK1_NO": {
+                url: "https://rikstv-live-scalstrm.telenorcdn.net/live/rikstv/64393b4f1dbc891fd41f5242/manifest.mpd",
+                k1: "003643bc9d61268c987504fa93b397f6",
+                k2: "b8d5767c73ff8bba68d955035b56f4c1"     
+            },  
+            "SKY_253_IT": {
+                url: "https://linear311-it-dash1-prd-akg0.cdn13.skycdp.com/016a/32233/FHD/skysport253/master.mpd",
+                k1: "00365b169a077daac5081277c3fd0c28",
+                k2: "f68ab32a552e13509a8ee1c4d96204bc"  
+            },
+            "SKY_254_IT": {
+                url: "https://linear312-it-dash1-prd.selector.skycdn.it/016a/31234/FHD/skysport254/master.mpd",
+                k1: "00369c14c20b78aadb1ec0e3c0e74979",
+                k2: "e768767e2c7238d8069887bb36aed7fa" 
+            },
+            "SKY_258IT": {
+                url: "https://linear312-it-dash1-prd-ll.cdn13.skycdp.com/016a/32772/skysport258/master.mpd",
+                k1: "0036fd8ccfddba47c8b40aeff63a797c",
+                k2: "dfd5c9d0f4ac6f3a1bd89803399e7026"
+            },
+            "ASIAN_CUP": {
+                url: "https://mwmpos03.akamaized.net/out/v1/64a59477c5d34afba754e763bb12ac81/manifest.mpd",
+                k1: "d31e0ee60e034e228e7f219650c0d6e2",
+                k2: "c50c247d5a34c1fbd565ad31886287cb"
+            },
+            
+            "SKY_SPORTS_UNO_IT": {
+                url: "https://linear301-it-dash1-prd-akg0.cdn13.skycdp.com/016a/31023/FHD/skysportuno/master_stereo.mpd",
+                k1: "0036dc70e4d659fe5ae57b52793a1ff3",
+                k2: "55517f806b6be917c2bf0e9cf9acc44f"
+            },
+             "EURO_COPA": {
+                url: "https://p7s1-live-001-prod.akamaized.net/28df258a/t_009/daserste-de-hd/cenc-default.mpd",
+                k1: "667f821486adfa6df62b53e41fe60c65",
+                k2: "be65cc2c378180153cbac97bc6ab8625"  
+            },
+            "SKY_PREMIER_LEAGUE": {
+                url: "https://linear009-gb-dash1-prd-ll.cdn.skycdp.com/016a/Content/DASH_003_720_120/Live/channel(skysportspremierleague)/manifest_720.mpd",
+                k1: "0005e6237bc7c7a273c82a1b86b457c8",
+                k2: "0783c788b5a8b7be6c77b13525a10eb8"
+            },
+            "SKY_SPORTS_MAIN_EVENT": {
+                url: "https://linear001-gb-dash1-prd-ll.cdn.skycdp.com/016a/Content/DASH_003_720_120/Live/channel(skysportsmainevent)/manifest_720.mpd",
+                k1: "00050559cd31897cd28ef1cad1857606",
+                k2: "32203d3d424a70258a9f676316681bea"
+            },
+            "SKY_SPORTS_F1": {
+                url: "https://linear005-gb-dash1-prd-ll.cdn.skycdp.com/016a/Content/DASH_003_720_120/Live/channel(skysportsf1)/manifest_720.mpd",
+                k1: "0005ff0d8408fc02af0ca5355a84546e",
+                k2: "f517ede498c9c7a7abea6465c633d449"
+            },
+            "BEIN1_TH": {
+                url: "https://ais-s.ais-vidnt.com/ais/play/origin/live/eds/S0001/DASH/S0001.mpd",
+                k1: "3fd52d1e9ba4b180aec12c9295b62c0f",
+                k2: "bb274e33da0c709e62c55d0cba911889"
+            },
+            "USA_NETWORK": {
+                url: "https://fsly.stream.peacocktv.com/Content/CMAF_OL1-CTR-4s/Live/channel(usa-east)/master.mpd",
+                k1: "882c9f5613b43b47adc70aa968a308ce",
+                k2: "de534ef8914bfe62ba3cdd6bdb9e1c04"
+            },
+            "MAGENTA_SPORTS_1_DE": {
+                url: "https://svc43.main.sl.t-online.de/poc/bpk-tv/msport01/msport01_m/playlist.m3u8",
+            },
+            "MAGENTA_SPORTS_2_DE": {
+                url: "https://svc43.main.sl.t-online.de/poc/bpk-tv/msport02/msport02_m/playlist.m3u8",
+            },
+             "MAGENTA_SPORTS_3_DE": {
+                url: "https://svc43.main.sl.t-online.de/poc/bpk-tv/msport03/msport03_m/playlist.m3u8",
+            },
+            "MAGENTA_SPORTS_4_DE": {
+                url: "https://svc43.main.sl.t-online.de/poc/bpk-tv/msport04/msport04_m/playlist.m3u8",
+            },
+            "MAGENTA_SPORTS_5_DE": {
+                url: "https://svc43.main.sl.t-online.de/poc/bpk-tv/msport05/msport05_m/playlist.m3u8",
+            },
+            "MAGENTA_SPORTS_6_DE": {
+                url: "https://svc43.main.sl.t-online.de/poc/bpk-tv/msport06/msport06_m/playlist.m3u8",
+            },
+            "MAGENTA_SPORTS_7_DE": {
+                url: "https://svc43.main.sl.t-online.de/poc/bpk-tv/msport07/msport07_m/playlist.m3u8",
+            },
+            "MAGENTA_SPORTS_8_DE": {
+                url: "https://svc43.main.sl.t-online.de/poc/bpk-tv/msport08/msport08_m/playlist.m3u8",
+            },
+           "ZIGGO_SPORT11": {
+                url: "https://mag04.tvx.prd.tv.odido.nl/wh7f454c46tw75168188_-627298088/PLTV/86/224/3221241590/3221241590.mpd?accountinfo=~~V2.0~qbcsJh_jU5C9BcZc959e_wae44b4867b3417aa76b5db2da20fe46c~KZzTWjB8qD1zdgbJjRPVLJX-tV0qiN9RBHC_iseGrsmTSRjj06oGDtGlpSCRGOwF3626cf085c08d024c7e4aafc18c32440:UTC,",
+                k1: "ef34ae91b4f2415e8439b2ad105e7488",
+                k2: "243248d8de1ff8c7c587ee2057317523"
+            },
+            "ZIGGO_SPORT": {
+                url: "https://mag03.tvx.prd.tv.odido.nl/wh7f454c46tw75168188_-627298088/PLTV/86/224/3221241590/3221241590.mpd?zoneoffset=0&devkbps=1-7000&servicetype=1&icpid=86&accounttype=1&limitflux=-1&limitdur=-1&tenantId=3103&accountinfo=%7E%7EV2.0%7EqbcsJh_jU5C9BcZc959e_wae44b4867b3417aa76b5db2da20fe46c%7EKZzTWjB8qD1zdgbJjRPVLJX-tV0qiN9RBHC_iseGrsmTSRjj06oGDtGlpSCRGOwF3626cf085c08d024c7e4aafc18c32440%7EExtInfo5Ro3VppWiUusj2ippqUPkQ%3D%3D4a2d2c8ce133f43026d0e31b822b8474%3A20240601012829%3AUTC%2C10001003329222%2C87.212.140.171%2C20240601012829%2C3103_SP1S%2C10001003329222%2C-1%2C0%2C1%2C%2C%2C2%2C3103_Sport1%2C%2C%2C2%2C10000044444303%2C0%2C10000025050255%2CNDEzODg2NTY3MzEwMzI2NzMwNjMwNTY%3D%2C%2C%2C5%2C1%2CEND&GuardEncType=2&RTS=1717205309&from=11&hms_devid=1008&online=1717205309&mag_hms=1008,311,305&_=1717205322621",
+                k1: "ef34ae91b4f2415e8439b2ad105e7488",
+                k2: "243248d8de1ff8c7c587ee2057317523"
+            },
+            "ZIGGO_SPORT2": {
+                url: "https://mag03.tvx.prd.tv.odido.nl/wh7f454c46tw266117884_-1972819316/PLTV/86/224/3221241560/3221241560.mpd?accountinfo=~~V2.0~OhA1DF4svOZppKxb-t-Ngw144cce44121c63284a33d5453493e5c8~1_Fmlu5PevHMYnEi9Z_HX2goKAd0VHSuxZMoIcAXcawYvG1meqGp2eQ2Ibhjvh7e59e7f6df3d57f23a32024ad67f0f19dc:UTC,",
+                k1: "3cfa8625f650406ebf6a4d1ea737f572",
+                k2: "0534e747c70b364aa7210e1bf3191df0"
+            },
+            "ZIGGO_DOCU": {
+                url: "https://da-d436234820010b8800010302000000000000000a.id.cdn.upcbroadband.com/wp/wp5-vxtoken-anp-g05060506-hzn-nl.t1.prd.dyncdn.dmdsdp.com/live/disk1/NL_000098_019255/_shared_cc010062b17300c4504b6ab5681b5417/NL_000098_019255.mpd",
+                k1: "16bf72dc22743d929c4318e193408373",
+                k2: "eae51a1e3904124963074cbf432c7c8e"
+            },
+            "ZIGGO_SPORT___": {
+                url: "https://da-d436236920010b8800010303000000000000000b.id.cdn.upcbroadband.com/wp/wp7-vxtoken-anp-g05060506-hzn-nl.t1.prd.dyncdn.dmdsdp.com/live/disk1/NL_000014_019661/_shared_6a89db18ec4202bae4d424e84c1f46a2/NL_000014_019661.mpd",
+                k1: "0be3d503dba13fc9a9c8ad4b89f599e6",
+                k2: "578c2231c526c5e9eb415411e36871bf"
+            },
+             "ZIGGO_TENNIS": {
+                url: "https://da-d436236320010b88000103030000000000000005.id.cdn.upcbroadband.com/wp/wp6-vxtoken-anp-g05060506-hzn-nl.t1.prd.dyncdn.dmdsdp.com/live/disk1/NL_000099_019256/_shared_cc010062b17300c4504b6ab5681b5417/NL_000099_019256.mpd",
+                k1: "16bf72dc22743d929c4318e193408373",
+                k2: "eae51a1e3904124963074cbf432c7c8e"
+            },
+            "ESPN_DEPORTES_USA_VPN": {
+                url: "https://linear.stvacdn.spectrum.com/LIVE/1166/dash/cenc/ESPNDHD_13667/manifest.mpd",
+                k1: "be65e5985fa04a49af310f0a92a0260a",
+                k2: "1acb5ff7b0dbfdf19c4dca1aabfaaa11"
+            },
+            "TNT_ALTER": {
+                url: "https://cdn-lumen01.sensa.com.ar/bpk-tv/TNTSports/default/index.mpd",
+                k1: "be65e5985fa04a49af310f0a92a0260a",
+                k2: "1acb5ff7b0dbfdf19c4dca1aabfaaa11"
+            },
+            "ESPN_PRE_ALTE": {
+                url: "https://cdn-lumen01.sensa.com.ar/bpk-tv/ESPNPremium/default/index.mpd",
+                k1: "be65e5985fa04a49af310f0a92a0260a",
+                k2: "1acb5ff7b0dbfdf19c4dca1aabfaaa11"
+            },
+            "PLAY_SPORTS_2_BE": {
+                url: "https://dca-ak-livedazn.akamaized.net/dash/dazn-linear-023/stream.mpd",
+                k1: "82f8e2a17dac44c0a18f660479349c59",
+                k2: "1b144f73e6fefe91cd05f850e2b589d0"
+            },
+            "PLAY_SPORTS_1_BE": {
+                url: "https://dcf-ak-livedazn.akamaized.net/dashrdm/dazn-linear-051/stream.mpd",
+                k1: "82f8e2a17dac44c0a18f660479349c59",
+                k2: "1b144f73e6fefe91cd05f850e2b589d0"
+            },
+            "ELEVEN_PRO_LEAGUE1": {
+                url: "https://dcf-ak-livedazn.akamaized.net/dashrdm/dazn-linear-049/stream.mpd",
+                k1: "82f8e2a17dac44c0a18f660479349c59",
+                k2: "1b144f73e6fefe91cd05f850e2b589d0"
+            },
+            "SPORTDIGITALDE": {
+                url: "https://dcf-ak-livedazn.akamaized.net/dashrdm/dazn-linear-022/stream.mpd",
+                k1: "82f8e2a17dac44c0a18f660479349c59",
+                k2: "1b144f73e6fefe91cd05f850e2b589d0"
+            },
+            "ZONA_DAZN_ITALIA": {
+                url: "https://dcf-ak-livedazn.akamaized.net/dashrdm/dazn-linear-024/stream.mpd",
+                k1: "82f8e2a17dac44c0a18f660479349c59",
+                k2: "1b144f73e6fefe91cd05f850e2b589d0"
+            },
+            "TUDN_USA_VPN": {
+                url: "https://linear.stvacdn.spectrum.com/LIVE/1131/dash/cenc/TUDNUH_8283/manifest.mpd",
+                k1: "85c8956b207c44a693d89984803c908b",
+                k2: "8d8ff21c464506ef396356dd761f5ccd"
+            },
+            "ARENA_SPORTSP_1_BH": {
+                url: "https://webtvstream.bhtelecom.ba/hls6/as_premium1.mpd",
+                k1: "c18b6aa739be4c0b774605fcfb5d6b68",
+                k2: "e41c3a6f7532b2e3a828d9580124c89d"
+            },
+            "ARENA_SPORTSP_2_BH": {
+                url: "https://webtvstream.bhtelecom.ba/hls6/as_premium2.mpd",
+                k1: "c18b6aa739be4c0b774605fcfb5d6b68",
+                k2: "e41c3a6f7532b2e3a828d9580124c89d"
+            },
+            "ARENA_SPORTSP_3_BH": {
+                url: "https://webtvstream.bhtelecom.ba/hls6/as_premium3.mpd",
+                k1: "c18b6aa739be4c0b774605fcfb5d6b68",
+                k2: "e41c3a6f7532b2e3a828d9580124c89d"
+            },
+            "ARENA_SPORTS_1_BH": {
+                url: "https://webtvstream.bhtelecom.ba/hls6/arena1.mpd",
+                k1: "c18b6aa739be4c0b774605fcfb5d6b68",
+                k2: "e41c3a6f7532b2e3a828d9580124c89d"
+            },
+            "ARENA_SPORTS_2_BH": {
+                url: "https://webtvstream.bhtelecom.ba/hls6/arena2.mpd",
+                k1: "c18b6aa739be4c0b774605fcfb5d6b68",
+                k2: "e41c3a6f7532b2e3a828d9580124c89d"
+            },
+            "ARENA_SPORTS_3_BH": {
+                url: "https://webtvstream.bhtelecom.ba/hls6/arena3.mpd",
+                k1: "c18b6aa739be4c0b774605fcfb5d6b68",
+                k2: "e41c3a6f7532b2e3a828d9580124c89d"
+            },
+            "ARENA_SPORTS_4_BH": {
+                url: "https://webtvstream.bhtelecom.ba/hls6/arena4.mpd",
+                k1: "c18b6aa739be4c0b774605fcfb5d6b68",
+                k2: "e41c3a6f7532b2e3a828d9580124c89d"
+            },
+            "ARENA_SPORTS_5_BH": {
+                url: "https://webtvstream.bhtelecom.ba/hls6/arena5.mpd",
+                k1: "c18b6aa739be4c0b774605fcfb5d6b68",
+                k2: "e41c3a6f7532b2e3a828d9580124c89d"
+            },
+            "ARENA_SPORTS_6_BH": {
+                url: "https://webtvstream.bhtelecom.ba/hls6/arena6.mpd",
+                k1: "c18b6aa739be4c0b774605fcfb5d6b68",
+                k2: "e41c3a6f7532b2e3a828d9580124c89d"
+            },
+            "TV2_Direkte_NO": {
+                url: "https://aws-appeartv-cdn.rikstv.no/rikstv/1/11/dash/TV2_HD/manifest.mpd?version=1&adap=no_dolby&RikstvAssetId=rikstv_5711",
+                k1: "bfb0134de69d76d25b5b4b202df11431",
+                k2: "025915bd3062c4bde44a13916c5bfefe" 
+            },
+            "LA_UNE_BE": {
+                url: "https://daiconnect.com/live/dash/rtbf/laune-premium-drm-2/.mpd?t=2023-03-28T15%3A15%3A00.000&USrGDPRC=CPpVcwAPpVcwAAHABBENC9CsAP_AAAAAAAIgF5wFAAKgAXABAACoAFoAMgAaABFACYAE8AKUAWwBcADaAIAAQkA_QD-AIGAUgA_YC8wAAAEhIAMAAQSnDQAYAAglOIgAwABBKcVABgACCU4yADAAEEpx0AGAAIJTkIAMAAQSnJQAYAAglOUgAwABBKcA.f_gAAAAAAAAA&UGDPR=1&DAdID=e76997ff-4695-4a78-9bb8-488e1631872a&requestuid=742b0983-cd7c-11ed-961f-a2691158f87a",
+                k1: "1a8315e4b64c4e638dc24d93134b9b2d",
+                k2: "2821b54058fb3adc9c6252c631aef9e5"  
+            },
+            "SKY_SPORTS_MAX_IT": {
+                url: "https://linear305-it-dash1-prd-ll.cdn13.skycdp.com/016a/31248/FHD/skysportmax/master.mpd",
+                k1: "0036a901e6f0381cfd1b6fcf10cc6038",
+                k2: "4fbb022704c9abcbb709484a5667fd79"
+            },
+            "TRUE_PREMIER_1_IN": {
+                url: "https://edge2.laotv.la/live/TSport1/index.m3u8"
+            },
+            "TRUE_PREMIER_2_IN": {
+                url: "https://edge2.laotv.la/live/TSport2/index.m3u8"
+            },
+            "SONY_SPORTS_1": {
+                url: "https://cdn-tv.co.in/myweb/watch.php?id=1000009276&e=.m3u8"
+            },
+            "SONY_SPORTS_2": {
+                url: "https://cdn-tv.co.in/myweb/watch.php?id=1000009277&e=.m3u8"
+            },
+            "SONY_SPORTS_3": {
+                url: "https://cdn-tv.co.in/myweb/watch.php?id=1000009278&e=.m3u8"
+            },
+            "SONY_SPORTS_4": {
+                url: "https://cdn-tv.co.in/myweb/watch.php?id=1000119187&e=.m3u8"
+            },
+            "SONY_SPORTS_5": {
+                url: "https://78549.pricesaskeloadsc.com/winplus/video.m3u8"
+            },
+            "BEIN_XTRA_N_ES": {
+            url: "https://bein-live.cdn.vustreams.com/live/f0fc61a0-b161-4eef-ae50-646c4f842b37/live.isml/f0fc61a0-b161-4eef-ae50-646c4f842b37.mpd",
+            k1: "54ef857b74c0c6e37b04022a87708382",
+            k2: "712ca8c470e9ff4f08915e7a7d91ff33"
+            },
+            "BEIN_SPORTS_1_TH": {
+                url: "https://49-231-37-237-rewriter.ais-vidnt.com/ais/play/origin/live/eds/S0001/DASH/S0001.mpd",
+                k1: "3fd52d1e9ba4b180aec12c9295b62c0f",
+                k2: "bb274e33da0c709e62c55d0cba911889"
+            },
+            "BEIN_SPORTS_2_TH": {
+                url: "https://49-231-37-237-rewriter.ais-vidnt.com/ais/play/origin/live/eds/S0002/DASH/S0002.mpd",
+                k1: "30c11587a1686b72f115f34b0bf1c383",
+                k2: "1e3a6af2408cdd78347b722728560c3b"
+            },
+            "BEIN_SPORTS_3_TH": {
+                url: "https://ais-s.ais-vidnt.com/ais/play/origin/live/eds/S0003/DASH/S0003.mpd",
+                k1: "aa724943787320593f5563048c90032d",
+                k2: "a039276254f53769b040199a4eca8c2c"
+            },
+            "MLB_TV": {
+                url: "https://cdn08jtedge.indihometv.com/dassdvr/133/beib2/manifest.mpd",
+                k1: "69646b755f3130303030303030303030",
+                k2: "e4a2359b05563399f1d9adfce641724a"
+            },
+            "TNT_1_GB": {
+                url: "https://live.ll.ww.aiv-cdn.net/OTTB/lhr-nitro/live/clients/dash/enc/wf8usag51e/out/v1/bd3b0c314fff4bb1ab4693358f3cd2d3/cenc.mpd",
+                k1: "ae26845bd33038a9c0774a0981007294",
+                k2: "63ac662dde310cfb4cc6f9b43b34196d"
+            },
+            "TNT_2_GB": {
+                url: "https://linear014-ie-dash1-prd-ak.cdn.skycdp.com/016a/Content/DASH_003_720_120/Live/channel(tntsport2)/manifest_720.mpd",
+                k1: "00050654545edbcf400de7c11a3ace78",
+                k2: "7fc6cab788206f4b2c10fe5225def411"
+            },
+            "TNT_3_GB": {
+                url: "https://linear001-ie-dash1-prd-ak.cdn.skycdp.com/016a/Content/DASH_003_720_120/Live/channel(tntsport3)/manifest_720.mpd",
+                k1: "000540adbb30871d80550825b28bc4c3",
+                k2: "402edc50e9288aadc551bceaf347a517"
+            },
+            "TNT_4_GB": {
+                url: "https://linear014-ie-dash1-prd-ak.cdn.skycdp.com/016a/Content/DASH_003_720_120/Live/channel(tntsport4)/manifest_720.mpd",
+                k1: "0005091188d73981c2bbd51bbe4a81ab",
+                k2: "2ee68af747c05c250b6a1c80abe57d2d"
+            }, 
+            "TV2_Sport_1_NO": {
+                url: "https://live-aws-scalstrm-cdn.rikstv.no/live/rikstv/64393bf81dbc891fd41f53ac/manifest.mpd",
+                k1: "0c6212056d2f51fcbf569f9a1a8517d1",
+                k2: "d07b404deb7c958347d742e6d1d2f3f9"
+            },
+            "SKY_251_IT": {
+                url: "https://linear311-it-dash1-prd.selector.skycdn.it/016a/31917/FHD/skysport251/master.mpd",
+                k1: "0036422cf4293ae7cf1e7f7062cc29e8",
+                k2: "37a223fcc17c087043bc837432fd25d8"
+            },
+            "Sky_Sports_Calcio_IT": {
+                url: "https://linear302-it-dash1-prd-ll.cdn13.skycdp.com/016a/31209/FHD/skysportseriea/master.mpd",
+                k1: "00369a2c69176d5a2deff777247b6637",
+                k2: "e122d4bad34c1e430ee349f5aac0060b"
+            },
+            "SBT_BR": {
+                url: "https://vrio.s.llnwi.net/band/dash_live_0035/manifest.mpd?da=1&country=BR&accountType=DTH&deviceType=web",
+                k1: "3ad3dca103185934acff7a0e9000c112",
+                k2: "3f396659d841a55cd1381e6735ecfa1d"
+            },
+             "CLUB_1_BE": {
+                url: "https://origin2-rtlbe.live.6cloud.fr/pool_z6h2o6qd/clubrtl/rtlbesd/dash_short_cenc10_clubrtl/index.mpd",
+                k1: "b53316f32fc93b51a61ba6fdf0bce6c1",
+                k2: "d752d66843a48a6fed64eed8f87adc3e"
+            },
+            "CANALE_5_IT": {
+                url: "https://live03p-seg.msf.cdn.mediaset.net/live/ch-c5/c5-dash-widevine.isml/manifest.mpd",
+                k1: "00f9f3c0783536b8ce4a30a01a52e082",
+                k2: "e926f7d45af4f7d154c990eae6a2d937"
+            },
+            "PLAY_SPORTS1BE": {
+                url: "https://dcf-ak-livedazn.akamaized.net/dashrdm/dazn-linear-051/stream.mpd",
+                k1: "82f8e2a17dac44c0a18f660479349c59",
+                k2: "1b144f73e6fefe91cd05f850e2b589d0"
+            },
+            "PLAY_SPORTS2BE": {
+                url: "https://dcf-ak-livedazn.akamaized.net/dashrdm/dazn-linear-052/stream.mpd",
+                k1: "82f8e2a17dac44c0a18f660479349c59",
+                k2: "1b144f73e6fefe91cd05f850e2b589d0"
+            },
+            "AMERICAPE": {
+                url: "https://live-evg4.tv360.bitel.com.pe/bitel/americatv/playlist.m3u8",
+            },    
+            "ITV1_GB": {
+                url: "https://wp2-obc1112-live-ch-prod.prod.cdn.dmdsdp.com/dash/SV09212/manifest.mpd",
+                k1: "5d9937d586414096948337ac314d79c1",
+                k2: "22ca2e250b729982c97209e0ff3f7e9b"
+            },   
+            "FOX_DEPORTES_USA": {
+                url: "https://linear.stvacdn.spectrum.com/LIVE/1106/dash/cenc/FXDEPHD/manifest.mpd",
+                k1: "c9231d5e7a99429382e6a5c2e588e141",
+                k2: "ca08ab407ab9393a814d720f1f41c6cf"
+            },
+            "AMERICA_OP2": {
+                url: "https://1279247418.rsc.cdn77.org/bpk-tv/QE4M3R1CA/dash/manifest.mpd",
+                k1: "0c44d6d5d32546af8db72d2fec1c52d4",
+                k2: "9225a237222dd8be8432b2f001992295"
+            },
+            "BandSports_BR": {
+                url: "https://0055-jbc.dtvott.com/dash_live_0054/manifest.mpd?da=1&country=BR&accountType=DTH&deviceType=web",
+                k1: "bd1af42db82f5a17a0d75246f25f5201",
+                k2: "a9edd4e2c410923e9cbcb261102e5008"
+            },
+            "GLOBOBR_RJ": {
+                url: "https://poc-sky0120.glbcdn.net/Content/Channel/live_0120/DASH/manifest.mpd?da=1&country=BR&accountType=DTH&deviceType=web",
+                k1: "db1f45f2c7eb3229a72fccd82b60a6f7",
+                k2: "4e2070595da16f87e6e6459a26be34d6" 
+            },
+            "TV2_Sport_NO": {
+                url: "https://ch11-hls-live.akamaized.net/out/u/433127.mpd",
+                k1: "d12e4c9dc52f4cbab7ac9b2278317e47",
+                k2: "a7987e5b6ec42db68a25486e108ca9f2"
+            },
+            "ESPN_1": {
+                url: "https://1279247418.rsc.cdn77.org/bpk-tv/Q3ESPN1NO/dash/manifest.mpd",
+                k1: "bb61b5891e3c4901b64e2c2ecb625856",
+                k2: "8634fa31f047d8a532e49091110b2fc5"
+            },
+            "ITALIA_1": {
+                url: "https://live03p-seg.msf.cdn.mediaset.net/live/ch-i1/i1-dash-widevine.isml/manifest.mpd",
+                k1: "00f9f3c0783536b8ee91704e23b78016",
+                k2: "bfd04d6f544c9cc4d35cb13ab6778587"
+            },
+            "Sky_Sport_253": {
+                url: "https://linear311-it-dash1-prd-akg0.cdn13.skycdp.com/016a/32233/FHD/skysport253/master.mpd",
+                k1: "00365b169a077daac5081277c3fd0c28",
+                k2: "f68ab32a552e13509a8ee1c4d96204bc"
+            },
+            "CANAL_5": {
+                url: "https://channel05.akamaized.net/hls/live/2033783/event01/index.m3u8",
+            },
+            "SPORT_PLUS_DE": {
+                url: "https://ac-009.live.p7s1video.net/c5c609cf/t_009/sport1plus-de-hd/cenc-default.mpd",
+                k1: "c1c11c3844b0dffdb9d9831900f1a1da",
+                k2: "a2c31e15346f339ca2b47bdd8591553f"
+            },
+            "HRT_2": {
+                url: "https://cdn1oiv.akamaized.net/hrtliveorigin/hrt2.smil/1/manifest.mpd",
+                k1: "994c79af863838109e7f3503bcd2aff9",
+                k2: "d2c19650ad2a2ac77a95453b941a6f0e"
+            },
+            "INFINITY_PLUS_1": {
+                url: "https://live03p-seg.msf.cdn.mediaset.net/live/ch-u1/u1-dash-widevine.isml/manifest.mpd",
+                k1: "00f9f3c0783536b832a8f0326fbdc02e",
+                k2: "ade0533ba667bb7e9847d8f215f03076"
+            },
+            "INFINITY_PLUS": {
+                url: "https://live03p-seg.msf.cdn.mediaset.net/live/ch-u2/u2-dash-widevine.isml/manifest.mpd",
+                k1: "00f9f3c0783536b834b0f0c2bfee80ac",
+                k2: "76b3afbf163f9c3feb6204b8fcf0ff53"
+            },
+            "FORMULA_1": {
+                url: "https://live.ll.ww.aiv-cdn.net/OTTB/dub-nitro/live/clients/dash/enc/cqbcvgkb83/out/v1/4dbe05ecfb1540448d82d68eeebfbb1c/cenc.mpd",
+                k1: "1061be12d303247426ec25e8369b2647",
+                k2: "bd622b0e610295de3b0bccb850ccaaaa"
+            },
+            "MATCH_RU": {
+                url: "https://strm.yandex.ru/kal/match_football1_hd/manifest.mpd",
+                k1: "5269ab07e6a6db7585324ae20542f191",
+                k2: "dba0dccffba1b26f658ec85a616102e8"
+            },
+            "ESPN_EC": {
+                url: "https://stream.srv.gomax.i.mtvreg.com/stream.m3u8?content-id=channel%3AESPN&content-expiration=1716131220&user-id=104458789&device-id=943110980&device-type=web&signature-ip=179.49.5.119&stream-quality=60&stream-format=m3u8&player-capabilities=adaptive2%2Cwebvtt%2Cvast%2Cclientvast&drm-system=&ott=0&parallel-limit=90000&lang=es&signature-expiration=1716131220&signature-hash=e35e4ed8dc0e0b6c76318dad75f9aeb6581e5eab60088b4442b1e4f7ff70f6f0",
+            },
+             "TYC_CL": {
+                url: "https://d3055hobuue3je.cloudfront.net/out/v1/188a8f3baf914a35868453bd5d0b0fd2/index.m3u8",
+            },
+            "TYC_SPORTS_PLAY": {
+                url: "https://dj8bzwveg7go9.cloudfront.net/out/v1/09e35529553d472b8f14e437af642e2f/index.m3u8",
+            },
+            "TYC_SPORTS_PLAY_V2": {
+                url: "https://ch04-04-11-tyc.vodgc.net/out/v1/366fc52554ae42c58465ea4b278eac0c/index.m3u8",
+            },
+            "TYC_SPORTS_PLAY_V3": {
+                url: "https://ch05-04-11-tyc.vodgc.net/out/v1/a2f25f61e9d44701aa4e813ac5efc4a4/index.m3u8",
+            },
+            "TYC_SPORTS_PLAY_V4": {
+                url: "https://ch06-04-11-tyc.vodgc.net/out/v1/bccdd4d97f434c63ab2f675e5145758f/index.m3u8",
+            },
+             "TYC_SPORTS_PLAY_V5": {
+                url: "https://ch08-04-11-tyc.vodgc.net/out/v1/4c8dc641a91448439388e41118924965/index.m3u8",
+            },
+             "TYC_SPORTS_PLAY_V6": {
+                url: "https://ch09-04-11-tyc.vodgc.net/out/v1/772e0b0193134726ad84693b7baca6c6/index.m3u8",
+            },
+             "TYC_SPORTS_PLAY_V7": {
+                url: "https://ch12-04-11-tyc.vodgc.net/out/v1/543996f2ca9149a5a984db778af87c7f/index.m3u8",
+            },
+             "TYC_SPORTS_PLAY_V8": {
+                url: "https://ch05-04-11-tyc.vodgc.net/out/v1/a2f25f61e9d44701aa4e813ac5efc4a4/index.m3u8",
+            },
+            "TYC_SPORTS_PLAY_V9": {
+                url: "https://ch05-04-11-tyc.vodgc.net/out/v1/a2f25f61e9d44701aa4e813ac5efc4a4/index.m3u8",
+            },
+            "TYC_SPORTS_PLAY_V10": {
+                url: "https://d107yb993altze.cloudfront.net/out/v1/772e0b0193134726ad84693b7baca6c6/index.m3u8",
+            },
+             "TYC_SPORTS_PLAY_V11": {
+                url: "https://dpyzprfzko681.cloudfront.net/out/v1/366fc52554ae42c58465ea4b278eac0c/index.m3u8",
+            },
+            "AZTECA_7_VPN": {
+                url: "https://mdstrm.com/live-stream-playlist/609ad46a7a441137107d7a81.m3u8",
+            },
+            "repretel_cr": {
+                url: "https://alba-cr-repretel-c6.stream.mediatiquestream.com/index.m3u8",
+            },
+            "PREMIERE_BR_MPD": {
+                url: "https://ottb.live.cf.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/4zkafrcxji/out/v1/810ebca1aff0443da717da4acdeda158/cenc.mpd",
+                k1: "d98239180d8380b3a1bb28d875b1ddf2",
+                k2: "cf836ced579257d1c76ae8809818e6c4"
+            },
+            "PREMIERE_4BR": {
+                url: "https://ottb.live.cf.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/zytzybatcd/out/v1/4e59aa00f6784bb98170741d40b33e3e/cenc.mpd",
+                k1: "ce5d18ffd68650affce1985201983ab7",
+                k2: "397c64e42507d95e5460830918c22a98"
+            },
+            "PREMIERE_5BR": {
+                url: "https://live.ll.ww.aiv-cdn.net/OTTB/iad-nitro/live/clients/dash/enc/j4y12ucrx0/out/v1/9135597c4400465e9e752dc32de587fd/cenc.mpd",
+                k1: "d5a3ac0b892bfccdf352b6def9cb2764",
+                k2: "ac0936acc0036fad2273efaa42b1fafd"
+            },
+            "DSPORTS_BR": {
+                url: "https://0135-jbc-da-bpk.dtvott.com/dash_live_0135/manifest.mpd",
+                k1: "533de0c3a6fd523bbcdd1d450ef0ed21",
+                k2: "b5a645df77c37e24ae3fc40231472770"
+            },
+            "LALIGATV_GB": {
+                url: "https://ottb.live.cf.ww.aiv-cdn.net/dub-nitro/live/clients/dash/enc/fpndxmzw6o/out/v1/70a50b1bda944628b8e7e66ab4069419/cenc.mpd",
+                k1: "fc12a94c41e0885dbea8a8d94f0a277d",
+                k2: "fc045df077e7669666b1b230e9aa3901"
+            },
+            "V_SPORTS_1_NO": {
+                url: "https://live-aws-scalstrm-cdn.rikstv.no/live/rikstv/644bb6e91dbc891fd422efc9/manifest.mpd",
+                k1: "4d808f2b9a74536cadbd95be141888ed",
+                k2: "9dd89f67b8885dc65721a8b1fbeae700"
+            },
+            "VSPORTS_2_NO": {
+                url: "https://live-aws-scalstrm-cdn.rikstv.no/live/rikstv/644bb6e91dbc891fd422efef/manifest.mpd",
+                k1: "0d3ff38c34985fdd81a37567646322b9",
+                k2: "6b4504297769acefae2e50920b7c8a77"
+            },
+            "V_SPORTS_3_NO": {
+                url: "https://live-aws-scalstrm-cdn.rikstv.no/live/rikstv/644bb6ea1dbc891fd422f01e/manifest.mpd",
+                k1: "fdcb8ee4623458e5832a92801fc723b1",
+                k2: "634a67c44b7b7030872043df95c1a55e"
+            },
+            "ESPN4_CH": {
+                url: "https://clbpktstvdash-3.clarovideo.com/bpk-tv/ESPNPLUS/dash_fk/index.mpd",
+                k1: "37e6a21b0a9f9ea5cad43adebd401751",
+                k2: "2f4ea11704b96a00ffd21164289a8cd4"
+            },
+            "TV3_PLUS_NO": {
+                url: "https://aws-appeartv-cdn.rikstv.no/rikstv/708/2/dash/Viasat4/manifest.mpd",
+                k1: "bc603bd4cbdaae7f9debc7accca10266",
+                k2: "bb2ed19b76e7bd6cb8ad228b4a79827c"
+            },
+            "TNTAR": {
+                url: "https://anbalancer.express.com.ar/live/c1eds/TNT_Sports_HD/SA_DASH_cipix/TNT_Sports_HD.mpd?dvr_window_length=30&token=5C396A91459E6C37057CCDC230080A1F",
+                k1: "9428de2d7075436f82b044db91d928ae",
+                k2: "c1c18eecb906179318e97ee3eaca6bfb"
+            },
+            "ESPN_PRE": {
+                url: "https://anbalancer.express.com.ar/live/c1eds/Fox_Sports_Premium_HD/SA_DASH_cipix/Fox_Sports_Premium_HD.mpd?dvr_window_length=30&token=5C396A91459E6C37057CCDC230080A1F",
+                k1: "4d649bb55c4c46028b85bbb41550cb59",
+                k2: "ed6da9b1ff8da94a4fdc1a1461048622"
+            },
+            "CONCACAF3": {
+                url: "https://d2cozakhtdw466.cloudfront.net/out/v1/0310eeeafd9a491796b23aec39fad1c4/index.m3u8",
+            },
+            "TNT_EN": {
+                url: "https://1227-vos.dtvott.com/DASH/manifest.mpd",
+                k1: "6f7d75c1b4bb3d28b1b21c50383c0fb6",
+                k2: "7b6068b6dc0f82d1a8bf93c84f970316"
+            },
+            "NBC_USA": {
+                url: "https://fsly.stream.peacocktv.com/Content/CMAF_OL1-CTR-4s/Live/channel(universo-east)/master.mpd",
+                k1: "232d71bb013d39ffb92ee8c576fb7e8e",
+                k2: "087408a48be8d57046c3868b37ea90ba"
+            },
+            "ESPN_ONE_MX": {
+                url: "https://livedashmx.cdn.startv.tv/bpk-tv/espn/vmx/index.mpd",
+                k1: "227153e801d97c9c672ddb65d0f7d139",
+                k2: "2d37b9e083bb849b6e913d817de2b8f2"
+            },
+            "TELE_DEPORTE": {
+                url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:4_HD.smil/manifest.m3u8",
+            },
+            "TELEMUNDO_USA": {
+                url: "https://fsly.stream.peacocktv.com/Content/CMAF_OL1-CTR-4s/Live/channel(kvea)/master.mpd",
+                k1: "dfb59142ce523a6c900758d5ee4c7997",
+                k2: "bd2d684e590815190eda056a6d9618bc"
+            },
+            "TVMAX": {
+                url: "https://bcovlive-a.akamaihd.net/74f665e9ff8447639d4de4b8b458d8ae/us-east-1/6058004209001/playlist_dvr.m3u8",
+            },
+            "D1C": {
+                url: "https://83ea134cb61e48669ae54c96ee535d26.mediatailor.us-east-1.amazonaws.com/v1/dash/f761a4100cd1d44ec919aa9543945ae7f63d684e/live_1264/DASH/manifest.mpd?da=1&aws.sessionId=c65c3920-0d50-4f28-b3c2-96a98045d92c",
+                k1: "fe49940345dd5e40be8f6c163a088aff",
+                k2: "12f97786894be0ff0ab9899261935a82"
+            },
+            
+           
+
+        };
+
+var id = getParameterByName('id');
+var config = ConfiguracionCanales[id];
+
+if (config) {
+    var sources = [];
+
+    if (config.url.includes('.m3u8')) {
+        sources.push({
+            file: config.url
+        });
+    }
+    
+    if (config.url.includes('.mpd') && config.k1 && config.k2) {
+        sources.push({
+            file: config.url,
+            drm: {"clearkey": {"keyId": config.k1, "key": config.k2}}
+        });
+    }
+
+ //JWWWWWW
+    jwplayer("player").setup({
+        playlist: [{
+            sources: sources
+        }],
+        autostart: true,
+        width: "100%", 
+        height: "100%", 
+        stretching: "exactfit",
+        aspectratio: "16:9",
+        cast: {}, 
+                sharing: {}
+        });
+        } else if (id === "ESPN_FLOW") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jM2Vkcy9FU1BOMkhEL1NBX0xpdmVfZGFzaF9lbmMvRVNQTjJIRC5tcGQ=&k1=ZTg4NGI3MTFhYjExMWJlYjhhN2JhMWU3YmNiZGM5YmY=&k2=Y2I4OWVlMzk2MTU5OWUzZTY0OGE1YWFkNjA4OTVmMzQ=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "ESPN_FLOW_") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jM2Vkcy9FU1BOMkhEL1NBX0xpdmVfZGFzaF9lbmMvRVNQTjJIRC5tcGQ=&k1=ZTg4NGI3MTFhYjExMWJlYjhhN2JhMWU3YmNiZGM5YmY=&k2=Y2I4OWVlMzk2MTU5OWUzZTY0OGE1YWFkNjA4OTVmMzQ=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "ESPN2_FLOW") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jNmVkcy9FU1BOMl9BcmcvU0FfTGl2ZV9kYXNoX2VuYy9FU1BOMl9BcmcubXBk&k1=NjVhNWJmYTNjN2E3MmRkZTYwYmU5YjBjNzQwNmM4ZmM=&k2=MGI0MGFlOWY3OGE3YmFjM2I1N2VjYmY3MmQzYzA4MWU=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "ESPN3_FLOW") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jM2Vkcy9FU1BOMy9TQV9MaXZlX2Rhc2hfZW5jL0VTUE4zLm1w%20ZA==&k1=ZjRjOWY5N2UyYTM2ZmVhYjBlNTA3N2YyYjQ0Y2JjNGU=&k2=MTc0M2NkMDNkZmUzNzM2YjJjOTVkYTkxYTc4M2FmMzg=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "ESPN_PREMIUM_FLOW_") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jN2Vkcy9Gb3hfU3BvcnRzX1ByZW1pdW5fSEQvU0FfTGl2ZV9kYXNoX2VuY18yQS9Gb3hfU3BvcnRzX1ByZW1pdW5fSEQubXBk&k1=NGMyMzBkYmM3ZjZhNGJmYTZhZDBhYTczZmY3OTIzNzQ=&k2=NDE4NmE3YzJhMTVmNTkwYTkzOTk4ODZmZWFlYzQyNTc=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "TNTSPORTS_FLOW_") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jNmVkcy9UTlRfU3BvcnRzX0hEL1NBX0xpdmVfZGFzaF9lbmMvVE5UX1Nwb3J0c19IRC5tcGQ=&k1=YmM4MGZhM2RhNjk2ZTUwM2Y5NDBmZGU1ZjY4MWExYzU=&k2=ZWE0NmU0ZTlmMTEzMmU4ZGQ3MWZiNzdmN2Q1NTA1OGE=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "TELEMUNDO_USA__") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=telemundousa" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TNTSPORTS_FLOW__") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jNmVkcy9UTlRfU3BvcnRzX0hEL1NBX0xpdmVfZGFzaF9lbmMvVE5UX1Nwb3J0c19IRC5tcGQ=&k1=YmM4MGZhM2RhNjk2ZTUwM2Y5NDBmZGU1ZjY4MWExYzU=&k2=ZWE0NmU0ZTlmMTEzMmU4ZGQ3MWZiNzdmN2Q1NTA1OGE=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TYC_SPORTS_FLOW") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jN2Vkcy9UeUNTcG9ydC9TQV9MaXZlX2Rhc2hfZW5jXzJBL1R5Q1Nwb3J0Lm1wZA==&k1=MmIyMWM4ZmE5YTMyOWNjZTMxMWE0YzRhNGFhOTk2YTE=&k2=Y2MyM2VhMWZiMzI2MjlmOWUxZjQ4YzhkZWVhZTNlNWI" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TYC_SPORTS") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=aHR0cHM6Ly9hcmxvY2FsbGl2ZWNoYW5uZWxzZGFzaC5sY2RuLmNsYXJvdHYuY29tLmFyL0NvbnRlbnQvREFTSF9EQVNIX0ZLL0xpdmUvY2hhbm5lbChUWUNfU1BPUlRTKS9tYXN0ZXIubXBk&k1=ZjdkY2FiODI5Y2FlZmZiNjEyNzQwYTFjNTFmMDQ3OGQ=&k2=YjI0NjZiYjUxOWI3NTlhZTNkZTE4MTg5ODg1MzI0NTM=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_PE") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.lolatid.com/espnpe.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_3PE") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9wZWxpdmVjaGFubmVsc2Rhc2gtNy5jbGFyb3ZpZGVvLmNvbS9icGstdHYvRVNQTjNIRC9kYXNoX2ZrL2luZGV4Lm1wZA==&k1=MDNhMmUxZjgxMzM4YzU4ZTNkYTcyMGQ2OWRmMWNiOGE=&k2=YmU4NzY0Y2Q0NjU4YjQ2YzBhNzJhOGRlZjRhMDQ2YzU=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_4PE") {
+            document.getElementById("player").innerHTML = '<iframe src="/espn_4.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPNP_CH") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.lolatid.com/espnprech.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_1") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9hcmxvY2FsbGl2ZWNoYW5uZWxzZGFzaC5sY2RuLmNsYXJvdHYuY29tLmFyL0NvbnRlbnQvREFTSF9EQVNIX0ZLL0xpdmUvY2hhbm5lbChFU1BOKS9tYXN0ZXIubXBk&k1=ZTI3MDExOTRhNTUxZDMwYjM1YTdkNDkzOTM3ZTUwZjE=&k2=MzgyZmYwMTUyMjc4ZDhiYTk0NmQ0ZmQ4MmEwOWIyMTI=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "ESPN_2") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=Ly9hcmxvY2FsbGl2ZWNoYW5uZWxzZGFzaC5sY2RuLmNsYXJvdHYuY29tLmFyL0NvbnRlbnQvREFTSF9EQVNIX0ZLL0xpdmUvY2hhbm5lbChFU1BOMikvbWFzdGVyLm1wZA==&k1=NTc5ZmMwY2QxMTg0MmJjZTljMDQ1YTBkNTVhYTQ4NzI=&k2=YmY1NGQ5MjhlMjcwNjFhMTNmYWZkZGU5MzQxNDY0NzI=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_3") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9hcmxvY2FsbGl2ZWNoYW5uZWxzZGFzaC5sY2RuLmNsYXJvdHYuY29tLmFyL0NvbnRlbnQvREFTSF9EQVNIX0ZLL0xpdmUvY2hhbm5lbChFU1BOMykvbWFzdGVyLm1wZA==&k1=MWI2NDUxODVjZDYyZDg4MWZhOTFmZDkyMTcwNjkwZWE=&k2=ZTVmNzU5ZTI1NmM3NjhjNjM0OWRlYjljYzQ0NmNhYmU=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_4_FLOW") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jM2Vkcy9FU1BOSEQvU0FfTGl2ZV9kYXNoX2VuYy9FU1BOSEQubXBk&key=Y2M4ZDQ0NDA2ZWQ2YmYxODk4YWQ5ZjdhMmQ2NGYyOWU=&k1=Y2M4ZDQ0NDA2ZWQ2YmYxODk4YWQ5ZjdhMmQ2NGYyOWU=&k2=ZmI4NWQwNTk2ODdhYjBmYzY3ODA1ODA2MjA0ZWRiZGY=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_EXTRA") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jM2Vkcy9FU1BOSEQvU0FfTGl2ZV9kYXNoX2VuYy9FU1BOSEQubXBk&key=Y2M4ZDQ0NDA2ZWQ2YmYxODk4YWQ5ZjdhMmQ2NGYyOWU=&k1=Y2M4ZDQ0NDA2ZWQ2YmYxODk4YWQ5ZjdhMmQ2NGYyOWU=&k2=ZmI4NWQwNTk2ODdhYjBmYzY3ODA1ODA2MjA0ZWRiZGY=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "FOX_SPORTS_FLOW") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jM2Vkcy9Gb3hTcG9ydHMvU0FfTGl2ZV9kYXNoX2VuYy9Gb3hTcG9ydHMubXBk&k1=Y2JjMmEwYzdhMzhkZjBhYTMzMzNjZDcxODQxZDNiMGQ=&k2=YWFjNjFiNzMwZTJhYzFkZjIzZjFlODcyZTc1NDFjMWI=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "FOX_SPORTS_2FLOW") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jM2Vkcy9Gb3hTcG9ydHMySEQvU0FfTGl2ZV9kYXNoX2VuYy9Gb3hTcG9ydHMySEQubXBk&k1=Yzk4ZGRmZmM0NzBmZTQ0OWFlMWE4ZDY0OTIxMTY5NzY=&k2=NTA4NmQzNzBlODQwMDEwMjMyY2Y0NTMyYjE2ZTE5N2Y=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "FOX_SPORTS_3FLOW") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jM2Vkcy9Gb3hTcG9ydHMzSEQvU0FfTGl2ZV9kYXNoX2VuYy9Gb3hTcG9ydHMzSEQubXBk&k1=NTViNDczOTBjZjllNDk5N2RhZTZkYWM4NWUwNTc4NzU=&k2=ZmEzOWU4NTU1NDNjNWQ3MGYzMDYwMGQ1OWU1ZTRjMWI=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "FOX_SPORTS") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.alwaysdomain01.online/clarovideo.html?url=aHR0cHM6Ly9hcmxvY2FsbGl2ZWNoYW5uZWxzZGFzaC5sY2RuLmNsYXJvdHYuY29tLmFyL0NvbnRlbnQvREFTSF9EQVNIX0ZLL0xpdmUvY2hhbm5lbChGT1hfU1BPUlRTKS9tYXN0ZXIubXBk&k1=NmE1ZWUwNDY1ODQ2YjU2MDIxMTM2YzZjNjk3NDEzNzU=&k2=YTI3M2Q3NGM5YzkyNjljMDc5Mzg2MmRhNDFjZjQxYjk=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "FOX_SPORTS_2") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.alwaysdomain01.online/clarovideo.html?url=aHR0cHM6Ly9hcmxvY2FsbGl2ZWNoYW5uZWxzZGFzaC5sY2RuLmNsYXJvdHYuY29tLmFyL0NvbnRlbnQvREFTSF9EQVNIX0ZLL0xpdmUvY2hhbm5lbChGT1hfU1BPUlRTXzIpL21hc3Rlci5tcGQ=&k1=ZDZlMzQ3ZTU1Zjc5M2RmMTFlNGVkN2ZjNGNhMzk3ZGQ=&k2=Y2NjMGRmNDE0NTE1N2FhNzUzZTYxYTM5NDA2MDNkMGI=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "FOX_SPORTS_3") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.alwaysdomain01.online/clarovideo.html?url=aHR0cHM6Ly9hcmxvY2FsbGl2ZWNoYW5uZWxzZGFzaC5sY2RuLmNsYXJvdHYuY29tLmFyL0NvbnRlbnQvREFTSF9EQVNIX0ZLL0xpdmUvY2hhbm5lbChGT1hfU1BPUlRTXzMpL21hc3Rlci5tcGQ=&k1=MDdkNmRlMDk2M2ZhZjk5MWVhZGRlNTdjOTA2MDUzNTA=&k2=MjE0ZjhjMDgyZGZiOGJhMzBjMjhkMTAzNGY1YzFlYjI=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "CANAL_5_MX_VPN") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=Ly9saXZlMi1vdHQuaXp6aWdvLnR2L291dC91L2Rhc2gvQ0FOQUwtNS1IRC9kZWZhdWx0Lm1wZA==&k1=NTc4Zjc3YzJlMGZiN2IzMWIxNjc2Yjc1YjU3ZmU5MjI=&k2=NmU1ZWUyNjZiMTEyZTU4YTBlMjdlNDM4NGIwM2VkNzY=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "SKY_SPORTS_MX_VPN") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9saXZlMi1vdHQuaXp6aWdvLnR2L291dC91L2Rhc2gvU0tZU1BPUlRTLTE2LUhEL21hbmlmZXN0Lm1wZA==&k1=Yzg4ZGM2YzY2OGNhYzNiNDY4ZDRhNGM3ZTE3NmZmM2Q=&k2=MWFlYjczOWRlMmMxNGVkMGFkNjU4Y2E4MDQzMjA4ZDg=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "FOX_SPORTS_PREMIUM") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9saXZlMS1vdHQuaXp6aWdvLnR2L291dC91L2Rhc2gvRk9YLVNQT1JUUy1QUkVNSVVNLUhEL2RlZmF1bHQubXBk&k1=MGZlZmQ1ZDk0YThjYjViNDBjMDU3YWIxODJmN2RjMjc=&k2=NTU0OGM0ODIzZmY3ZjFlYTYxYmFmYjdjYmMxOWUwMDU=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "EURO_IZZI") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9saXZlNC1vdHQuaXp6aWdvLnR2L291dC91L2Rhc2gvU0tZLVVFRkEtRVVSTy0yMDI0LTEtSEQvZGVmYXVsdC5tcGQ=&k1=ODhkNTI3ZjlkYTM4ZjA2OTAyYmQyZTliOWZiZWQ3MjE=&k2=ZDZjZjExZDkxMDNkNmYwZGZiZWNmZGQzMDE0NTJjYzM=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TUDN") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=TUDNMX" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "S_COLOMBIA") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/casdl.html?url=Ly9sYXRhbXZvc2xpdmVjbGFyb3ZpZGVvLmFrYW1haXplZC5uZXQvQ29udGVudC9EQVNIX0RBU0hfRksvTGl2ZS9DaGFubmVsKFNFTkFMX0NPTE9NQklBX0hEKS9tYW5pZmVzdC5tcGQ=&k1=N2YyOWMwZmQyNGI3ZTI3NzI4M2FhM2FkOWE0MTcyOTU=&k2=N2UwN2JhZjFiODYzYzk3M2JlYWM4NWEwOGU5YThkYzE=&mx" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_PRE_CH") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9jbGJwa3RzdHZkYXNoLTMuY2xhcm92aWRlby5jb20vYnBrLXR2L0ZPWFNQT1JUUzFIRC9kYXNoX2ZrL2luZGV4Lm1wZA==&k1=OTMxOTUxNDhlNmIxZjk3Y2RkMzEyMjRkMDRkYjJlMGQ=&k2=ZGQ3ZmNmYWQ0NGQ3ZTQ5OGRhZjFmNWNiOGMwOWQ1ZTM=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "LIGA1MAXPE__VPN") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/liga1ax.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "WIN_SPORTS_PLUS") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=Ly9jb3Zvc2xpdmVjaGFubmVsczJkYXNoLmNsYXJvdmlkZW8uY29tL0NvbnRlbnQvREFTSF9EQVNIX0ZLL0xpdmUvQ2hhbm5lbChXSU5QUkVNSVVNKS9tYW5pZmVzdC5tcGQ&k1=ZjZiMzBhNjYxYzY5YjcwMDM5ZTRlYjUxMjQ3YzRkMTA=&k2=MjQzNDkzZTRhN2ZhYzk1NzczMjZlMTVmMDE2OWY5Mzg=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "WIN_SPORTS") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.alwaysdomain01.online/clarovideo.html?url=aHR0cHM6Ly9jb3Zvc2xpdmVjaGFubmVsczJkYXNoLmNsYXJvdmlkZW8uY29tL0NvbnRlbnQvREFTSF9EQVNIX0ZLL0xpdmUvQ2hhbm5lbChXSU5TUE9SVFNfSEQpL21hbmlmZXN0Lm1wZA==&k1=Mjc0NzQ4ODU2NGU3ZTFmOGUwZjhiYjI1ZDM0OWUzYmE=&k2=ZWRiY2ViYzRmM2I5YWMyMjhlZWQwY2MyOTczOWJjMGM=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "FOX_SPORTS_MX") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=foxsportsmx" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "FOX_SPORTS_2_MX") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=foxsports2mx" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "FOX_SPORTS_3_MX") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=foxsports3mx" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "CLARO_SPORTS") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?get=aHR0cHM6Ly9sYXRhbXZvc2xpdmVjbGFyb3ZpZGVvLmFrYW1haXplZC5uZXQvQ29udGVudC9EQVNIX0RBU0hfRksvTGl2ZS9DaGFubmVsKENMQVJPX1NQT1JUU19MQVRBTV9IRCkvbWFuaWZlc3QubXBk&key=NzRjZGNiNjNmZjNlNGYzY2U0ZGE0MjQzYjZkMWUxZDg=&key2=OWI4MzY2ZmE4ZTllYmNkZjRiMzQ5ZDZjOWQ1MjgxMTU=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_MX") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=espnmx" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN2_MX") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=espn2mx" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN3_MX") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=espn3mx" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_CL") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9jbGJwa3RzdHZkYXNoLTMuY2xhcm92aWRlby5jb20vYnBrLXR2L0VTUE5IRC9kYXNoX2ZrL2luZGV4Lm1wZA==&k1=MmNkODkwMjU5ZmM2ODMzNTBmNmY2MzQwOWVhOTgwZTg=&k2=YmJmMWNiNTQ5Njk2NTQxMTQ4ZTg1ZjUxM2Q3MzcxMDU=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN3_CH") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9jbGJwa3RzdHZkYXNoLTMuY2xhcm92aWRlby5jb20vYnBrLXR2L0VTUE4zSEQvZGFzaF9may9pbmRleC5tcGQ=&k1=NmVhNjAxZDEzNTI3NTIyYTk3OGU4YTM0NWQ1NDU2MWY=&k2=Mzc3ZTQzZGRmNjY1MjE4NzZkNDgzY2JlOTM1ZDU2MTE=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN2__CO") {
+            document.getElementById("player").innerHTML = '<iframe src="/espn2.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN3_CO") {
+            document.getElementById("player").innerHTML = '<iframe src="/espn3co.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN7_CO") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/espn7dc_co.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN2_PE") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9wZWxpdmVjaGFubmVsc2Rhc2gtMy5jbGFyb3ZpZGVvLmNvbS9icGstdHYvRVNQTjIvZGFzaF9may9pbmRleC5tcGQ=&k1=YWQzNDlkNGY4ZDAwNTU4MTllYzJiZTIyNWVmY2FhNzQ=&k2=ZmYxMjk4Y2IxYzY2NDk3NTEzODkxNGE0YmYyYWYxMmE=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPNCOLOMBIA1") {
+            document.getElementById("player").innerHTML = '<iframe src="/espn_co1.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPNCOLO_") {
+            document.getElementById("player").innerHTML = '<iframe src="/espn_co.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TVPUBLICA") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=tv_publica" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TELEFE") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jNmVkcy9UZWxlZmVIRC9TQV9MaXZlX2Rhc2hfZW5jL1RlbGVmZUhELm1wZA==&k1=M2NlYzFiMWVhOTc5OWRkYTU1OTZlNjRmMzdlNWVkMjA=&k2=YzY5ZjNhZmRlMjA4NWRjYWFhZGRiZjU1MjQ2YTAzMjM=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        } else if (id === "BEIN1_ID") {
+            document.getElementById("player").innerHTML = '<iframe src="https://www.useetv.com.abcgru.com/bein.html?url=aHR0cHM6Ly9jZG4wOGp0ZWRnZS5pbmRpaG9tZXR2LmNvbS9kYXNzZHZyLzEzMy9iZWliMS9tYW5pZmVzdC5tcGQ=&k1=Njk2NDZiNzU1ZjMxMzAzMDMwMzAzMDMwMzAzMDMwMzA=&k2=ZTRhMjM1OWIwNTU2MzM5OWYxZDlhZGZjZTY0MTcyNGE=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "BEIN3_ID") {
+            document.getElementById("player").innerHTML = '<iframe src="https://www.useetv.com.abcgru.com/bein.html?url=aHR0cHM6Ly9jZG4wOGp0ZWRnZS5pbmRpaG9tZXR2LmNvbS9kYXNzZHZyLzEzMy9iZWliMi9tYW5pZmVzdC5tcGQ=&k1=Njk2NDZiNzU1ZjMxMzAzMDMwMzAzMDMwMzAzMDMwMzA=&k2=ZTRhMjM1OWIwNTU2MzM5OWYxZDlhZGZjZTY0MTcyNGE=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "V_SPORTS_1_O") {
+            document.getElementById("player").innerHTML = '<iframe src="https://www.useetv.com.abcgru.com/bein.html?url=aHR0cHM6Ly9kaXJlY3Rvci5zdHJlYW1pbmcudGVsaWEuY29tL3R2bS1wYWNrYWdlci1wcm9kL2dyb3VwMS82MDg5YzE3ZDQ3YTIzZDc2NjQ1Y2VhZjQvbWFuaWZlc3QubXBk&k1=MDRjNWVhZjYyY2Q3NWYyZDk0N2FiNGQ2MjFmMzkyNTY=&k2=NzY5Njc1OTg5NjJlN2E3MzE0YTJiMjUxZTkwNzA3MjU=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "DSPORTS") {
+            document.getElementById("player").innerHTML = '<iframe src="https://alwaysdomain01.online/hls.php" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "LIGA_1_DIRECT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=aHR0cHM6Ly8xMjY0LWFiYy1kYS1icGsuZHR2b3R0LmNvbS9kYXNoX2xpdmVfMTI3Mi9tYW5pZmVzdC5tcGQ=&k1=ODQxMmI4NTI4MmY0NWVlNWIzMDAxNWE0MTA3MzkyNGE=&k2=ZTk2MzBiYWE4MWFlNzZkYzUxMjQ5MWYzOGFhMDgzOTM=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "FOX_2_DTV") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=aHR0cHM6Ly8xMjc2LWFiYy1kYS1icGsuZHR2b3R0LmNvbS9kYXNoX2xpdmVfMTI4MS9tYW5pZmVzdC5tcGQ=&k1=YjU3YjYxZDJjOGFiNTI5MDljMzNjM2MyM2Q2NzM2M2Y=&k2=NmU2N2JlNjg3NmNjZDhlMDY2NzNkMzkzOTNmMDc0YTU=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "L1__MAXDTV____") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=Ly8xMjY0LWFiYy1kYS1icGsuZHR2b3R0LmNvbS9kYXNoX2xpdmVfMTI3Mi9tYW5pZmVzdC5tcGQ=&k1=NDA3OWMxNzU3YzEzNWRjY2IwNWQ3ZWZmZTNhYmRhNWE=&k2=NzYyYWRlMDU1NTllZDNhMTU4NTRhMjE5MmU4NjNiMjY=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TNT_ES") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=aHR0cHM6Ly8xMjI3LXZvcy5kdHZvdHQuY29tL0RBU0gvbWFuaWZlc3QubXBk&k1=NmY3ZDc1YzFiNGJiM2QyOGIxYjIxYzUwMzgzYzBmYjY=&k2=N2I2MDY4YjZkYzBmODJkMWE4YmY5M2M4NGY5NzAzMTY=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TNT_ES_FLOW") {
+            document.getElementById("player").innerHTML = '<iframe src="https://65.streamtp.live/fl.html?url=LmN2YXR0di5jb20uYXIvbGl2ZS9jM2Vkcy9UTlRfSERfQXJnL1NBX0xpdmVfZGFzaF9lbmMvVE5UX0hEX0FyZy5tcGQ=&k1=ZmFhZDE3MjJhNTc1ZjRkOWVjN2I3NzRkYjYzYzg3OWM=&k2=Y2YwMTg0ODMwMzQ0YmEzNmFkMmZmZWY5ZGQyZGQ5ZDA=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "DSPORTS2") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=aHR0cHM6Ly8xMDYzLXZvcy1kYS1tdC5kdHZvdHQuY29tL0RBU0gvbWFuaWZlc3QubXBk&k1=YzQ0ZDUyYjExZGNlMzg3NWFkMjc2NWM5ZDQ2OTA3NWI=&k2=YWY0YmEzMWMxMzI0ZWI5MmFjODg0NjNmN2JkOTQxZDU=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "GLOBOBR_R_J") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=aHR0cHM6Ly8wMTAzLXZvcy5kdHZvdHQuY29tL0RBU0gvbWFuaWZlc3QubXBkP2RhPTEmY291bnRyeT1CUiZhY2NvdW50VHlwZT1EVEgmZGV2aWNlVHlwZT13ZWI=&k1=ZDcxNjk3NDYzMzUyMzE2M2E5MDkxMmYyMGQ0MGE1MGI=&k2=MmUyOTQ1ODI0YjgyYzcyYmVmOWRjMjFjOWYwMDQ3ODQ=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TNT_CH1") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=aHR0cHM6Ly8xMjY0LXRlc3QtbWlkcm9sbC1hYmMtZGEtYnBrLmR0dm90dC5jb20vZGFzaF9saXZlXzEyMzIvbWFuaWZlc3QubXBkCg==&k1=MWI5OTg0ZGM2NmIyNTlmZThhZTU5N2NiNGZjMWY0YzM=&k2=ZmZiNTNhOTRmNDhmNDk5NTQ2ODY5YzFmOWU4NzcxODc=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "PREMIERE3_BR") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=Ly9saXZlLmxsLnd3LmFpdi1jZG4ubmV0L09UVEIvaWFkLW5pdHJvL2xpdmUvY2xpZW50cy9kYXNoL2VuYy84Y2k3bDdkdDBkL291dC92MS85OGZlNjlmMmNkYzA0MTM4ODAwNDMwNWU2MzM1MzI2OC9jZW5jLm1wZA==&k1=OTU0N2Y5YWVhZDEyMzdjOGEzYjFiZjBhOTFlZDk5OTU=&k2=NTM0ZmFiNDU0MWZlZjMxOTIxZGQ5NzBjNjVkNTE4NDg=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "PREMIERE2_BR") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=aHR0cHM6Ly9vdHRiLmxpdmUuY2Yud3cuYWl2LWNkbi5uZXQvaWFkLW5pdHJvL2xpdmUvY2xpZW50cy9kYXNoL2VuYy9wZ3ViMWJoN285L291dC92MS83YTU5MjI2MTk3NjQ0YmZhYTJiMDBmNDg4YmQ5NTI4OC9jZW5jLm1wZA==&k1=ZmQyZTgwMTlmMzcyMTFjYThiNzhhOGI2NTZmMWI4M2E=&k2=MjczMTg5YzIxNGU4NWI0M2FjMzYyOThkMWM0MjIzMzA=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "PREMIERE6_BR") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=aHR0cHM6Ly8wMDY0LWpiYy5kdHZvdHQuY29tL2Rhc2hfbGl2ZV8wMDgwL21hbmlmZXN0Lm1wZA==&k1=OWZjMDhiYzAyYzkwNTAwYmE1MTFkOTNhNTRkMjYxYzQ=&k2=NjcyYjFhZGY1NDgxNTYxMGU4ZWEwMTRiZTVkZWFmODg=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ATV_PE") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=aHR0cHM6Ly8xMDE2LXZvcy5kdHZvdHQuY29tL0RBU0gvbWFuaWZlc3QubXBk&k1=MDE5MWVmMWE5NWQ1MzFiZjgzMGViZTRmOTVkZDg0MjQ=&k2=MDkzNTYyOGNhYTg0ODhkNmY1YTA5NWQ0NzZlOTA4NzU=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "AMERICA_TV") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eventos4" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "RCN_CO") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=rcnco" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "RCN_COO") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv.html?url=aHR0cHM6Ly8xMTg1LXZvcy5kdHZvdHQuY29tL0RBU0gvbWFuaWZlc3QubXBk&k1=MmU4NjU5OTM4N2U0MzEzYThlNTdhMjczMmY1YWYyNjE=&k2=OGE5ZGYwZWVlOTI3ZGYxYTcwODE0NzU1NTY2ZjM0MTA=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "DSPORTSPLUS") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=dsports_plus" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "DSPORTSPLUS__") {
+            document.getElementById("player").innerHTML = '<iframe src="https://forlessmake.store/dtv2.html?url=aHR0cHM6Ly8xMjY0LXRlc3QtbWlkcm9sbC1hYmMtZGEtYnBrLmR0dm90dC5jb20vZGFzaF9saXZlXzEwNzEvbWFuaWZlc3QubXBkCg==&k1=ZjE5YzNhOGM2MzhkNTJjMmFiNzdiOTU2NmJjYjI5OTY=&k2=NzQwMGE5ZjkwNWYxNzJkNWQ3NGQ3ZGM0NDA3MjRjOGU=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPNV1") {
+            document.getElementById("player").innerHTML = '<iframe src="https://alwaysdomain01.online/espn_v1.php" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "DAZN_1_DE") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eventos10" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "LALIGATV__GB") {
+            document.getElementById("player").innerHTML = '<iframe src="https://alwaysdomain01.online/laligatv.php" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TYC_IN") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eventos8" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_P") {
+            document.getElementById("player").innerHTML = '<iframe src="https://alwaysdomain01.online/espnp.php" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "GO_PE_ESPN7") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=espn7" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "GO_PE_ESPN4") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=espn4" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "GO_PE_ESPN2") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9wZWxpdmVjaGFubmVsc2Rhc2gtNy5jbGFyb3ZpZGVvLmNvbS9icGstdHYvRVNQTkhEL2Rhc2hfZmsvaW5kZXgubXBk&k1=MTdlZGI1NjdlMjY2YzgxYWU2NDFlODJmM2MzMmE2Yzg=&k2=NzA1MjkwMTQxODU0ZGI0MGVkMzliNWMyZTUyZWYwOWQ=&aut=true&lang=0" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "GO_PE_ESPN5_") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=espn5" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "GO_PE_ESPN6") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=espn6" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "GO_PE_ESPN") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.lolatid.com/espnpe.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "SKY_SPORTS_FOOTBALL") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eventos7" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN5_CO") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eventos" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_CH_2") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9jbGJwa3RzdHZkYXNoLTEuY2xhcm92aWRlby5jb20vYnBrLXR2L1ROVFNQSEQvZGFzaF9may9pbmRleC5tcGQ=&k1=ZWI5Yjg3Nzg2YmY5OTA1ZmQxNGNiZjFhYzU3MmQzZDE=&k2=MDUwYTVkMWRhNjY3NjkzZGJiMzI3MzUxYjJmNjBjMDg=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN2_CH") {
+            document.getElementById("player").innerHTML = '<iframe src="https://clarovideo.forlessmake.store/claro_video.html?url=aHR0cHM6Ly9jbGJwa3RzdHZkYXNoLTMuY2xhcm92aWRlby5jb20vYnBrLXR2L0VTUE4ySEQvZGFzaF9may9pbmRleC5tcGQ=&k1=NDZiYjQxNDVmZGNkZWYyYmQ5Yzk0Nzg2YTQ0YzczYjM=&k2=ODVlZGI3ZjIxMTNlYzBmOWJhZGExNzRjMTk2ZDhlMmQ=" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "DAZN_LA_LIGA_OP2") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=dazn_laliga" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "WWE_Network") {
+            document.getElementById("player").innerHTML = '<iframe src="https://futbolgratisenhd.com/embed/embed.html" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ELEVEN_SPORTS_1_PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=eleven_sports_1_pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ELEVEN_SPORTS_2_PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=eleven_sports_2_pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ELEVEN_SPORTS_3_PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=eleven_sports_3_pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ELEVEN_SPORTS_4_PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=eleven_sports_4_pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ELEVEN_SPORTS_5_PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=eleven_sports_5_pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ELEVEN_SPORTS_6_PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=eleven_sports_6_pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "DAZN_1_ES") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=dazn1" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "DAZN_2_ES") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=dazn2" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "EUROSPORTS_1") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eurosports1_es" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "EUROSPORTS_2") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eurosports2_es" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "GOLPLAY") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=golplay_es" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_NL_2") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eventos9" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_NL_3") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eventos7" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN_NL") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eventos10" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "ESPN4_CO") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=espn4" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "NAYIB_C4") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=eventos3" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "SPORT_TV_1PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=sportv_1pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "SPORT_TV_2PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=sportv_2pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "SPORT_TV_3PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=sportv_3pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "SPORT_TV_4PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=sportv_4pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "SPORT_TV_5PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=sportv_5pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "SPORT_TV_6PT") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=sportv_6pt" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "POLSAT1") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp.live/global1.php?stream=polsat1_pl" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TIGO_PY") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=eventos9" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "PREMIER_SPORTS_2_IRL") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=premiersports2_irl" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "DAZN_2_DE") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=eventos8" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "TV_LA_1_ES") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=eventos" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "PREMIER_SPORTS_1_IRL") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=premiersports1_irl" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "PREMIERE_BR") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=premiere1" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }else if (id === "CANAL_11") {
+            document.getElementById("player").innerHTML = '<iframe src="https://streamtp1.com/global1.php?stream=canal11_portugal" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+        }
+    </script>
+
+</body>
+</html>
