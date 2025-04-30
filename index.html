@@ -2,71 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <script src="//ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
-    <script> jwplayer.key = 'XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo';
-    </script>
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="referrer" content="no-referrer" />
-    <style>
-    body {
-       margin: 0;
-       padding: 0;
-    }
-    #player {
-        height: 110vh;
-    }
-   
-
-    </style>
+    <title>Dear Sun</title>
+    <meta name="language" content="en-US">
+    <meta name="title" content="Dear Sun">
+    <meta name="description" content="Collecting this wasn't easy — your star is my motivation to keep going! Contributions are welcome too.">
+    <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/sun0225SUN/photos/img/20210715233345.png">
+    <link rel="stylesheet" href="css/love.css">
 </head>
+
+
 <body>
-    
-    <script type="text/javascript">
-    function getParameterByName(name) {
-        name = name.replace(/[\[]/, "\[").replace(/[\]]/, "\]");
-        var regex = new RegExp("[\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-    
-    var get = getParameterByName('get');
-    var key = getParameterByName('key');
-    var key2 = getParameterByName('key2');
-    var aut = getParameterByName('aut');
-    
-    if (aut == 1)
-        aut = true;
-    else
-        aut = false;
-    </script>
-    <div id="player"></div>
-    <script type="text/javascript">
-    var playerInstance = jwplayer("player");
-    
-    playerInstance.setup({
-        playlist: [{
-            "sources": [
-                {
-                    "default": false,
-                    "type": "dash",
-                    "file": atob(get),
-                    "drm": {
-                        "clearkey": { "keyId": atob(key), "key": atob(key2) }
-                    },
-                    "label": "0"
-                }
-            ]
-        }],
-        width: "100%",
-        aspectratio: "16:9",
-        autostart: aut,
-        height:"100vh",
-        cast: {},
-        sharing: {}
-    });
-    </script>
+
+    <audio autoplay="autopaly" loop="loop" id="audios" preload="auto">
+        <source src="MP3/1.mp3" />
+    </audio>
+
+    <div class="container" onselectstart="return false;" unselectable="on" style="-moz-user-select:none;">
+
+        <div class="body_left">
+            <img src="images/biubiubiu.gif" alt="" ondragstart='return false;'>
+        </div>
+
+        <div class="body_center love">
+            <div class="block">
+                <div class="div1"></div>
+                <div class="div2"></div>
+                <div class="div3"></div>
+                <div class="div4"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="border">
+            <div class="border-top"></div>
+            <div class="border-bottom"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/love.js"></script>
+
 </body>
+
 </html>
